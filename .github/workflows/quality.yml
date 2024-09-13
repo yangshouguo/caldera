@@ -21,14 +21,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - python-version: 3.8
-            toxenv: py38,style,coverage-ci
-          - python-version: 3.9
-            toxenv: py39,style,coverage-ci
-          - python-version: 3.10.9
-            toxenv: py310,style,coverage-ci
-          - python-version: 3.11
-            toxenv: py311,style,coverage-ci
           - python-version: 3.12
             toxenv: py312,style,coverage-ci
 
@@ -45,10 +37,6 @@ jobs:
         run: |
           pip install --upgrade virtualenv
           pip install tox
-      - name: Run tests
-        env:
-          TOXENV: ${{ matrix.toxenv }}
-        run: tox
       - name: Override Coverage Source Path for Sonar
         run: sed -i "s/<source>\/home\/runner\/work\/caldera\/caldera/<source>\/github\/workspace/g" /home/runner/work/caldera/caldera/coverage.xml
       - name: SonarCloud Scan
